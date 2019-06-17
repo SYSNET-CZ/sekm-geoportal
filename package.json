@@ -1,0 +1,62 @@
+{
+    "name": "sekm-geoportal",
+    "version": "1.1.0",
+    "description": "Geoportál SEKM3",
+    "author": "sysnetcz",
+    "license": "BSD-2-Clause",
+    "repository": "https://github.com/SYSNET-CZ/sekm-geoportal.git",
+    "private": true,
+    "workspaces": [
+      "qwc2"
+    ],
+    "devDependencies": {
+        "@babel/core": "^7.2.2",
+        "@babel/plugin-proposal-class-properties": "^7.3.0",
+        "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+        "@babel/preset-env": "^7.3.1",
+        "@babel/preset-react": "^7.0.0",
+        "babel-eslint": "^10.0.1",
+        "babel-loader": "^8.0.5",
+        "css-loader": "^2.1.0",
+        "eslint": "^5.13.0",
+        "eslint-plugin-react": "^7.12.4",
+        "file-loader": "^3.0.1",
+        "lodash-webpack-plugin": "^0.11.5",
+        "mkdirp": "^0.5.1",
+        "rimraf": "^2.6.3",
+        "string-replace-loader": "^2.1.1",
+        "style-loader": "^0.23.1",
+        "terser-webpack-plugin": "^1.2.2",
+        "url-loader": "^1.1.2",
+        "webpack": "^4.29.3",
+        "webpack-bundle-size-analyzer": "^3.0.0",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.1.14"
+    },
+    "scripts": {
+        "clean": "rimraf dist",
+        "build": "node -e \"process.exit(require('os').platform() === 'win32' ? 0 : 1)\" && qwc2\\scripts\\package-commands.bat build || ./qwc2/scripts/package-commands.sh build",
+        "start": "npm run tsupdate && npm run themesconfig && npm run iconfont && webpack-dev-server --progress --colors --host 0.0.0.0 --port 8081",
+        "iconfont": "node qwc2/scripts/makeIconkit.js",
+        "themesconfig": "node qwc2/scripts/themesConfig.js",
+        "prod": "node -e \"process.exit(require('os').platform() === 'win32' ? 0 : 1)\" && qwc2\\scripts\\package-commands.bat prod || ./qwc2/scripts/package-commands.sh prod",
+        "tsupdate": "node qwc2/scripts/updateTranslations.js",
+        "analyze": "node -e \"process.exit(require('os').platform() === 'win32' ? 0 : 1)\" && qwc2\\scripts\\package-commands.bat analyze || ./qwc2/scripts/package-commands.sh analyze",
+        "release": "node -e \"process.exit(require('os').platform() === 'win32' ? 0 : 1)\" && qwc2\\scripts\\package-commands.bat release || ./qwc2/scripts/package-commands.sh release"
+    },
+    "babel": {
+        "plugins": [
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-proposal-object-rest-spread"
+        ],
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "modules": false
+                }
+            ],
+            "@babel/preset-react"
+        ]
+    }
+}
